@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Sell
+{% endblock %}
+
+{% block main %}
+<form action="/sell" method="post">
+    <div class="mb-3 form-group">
+        <select required autofocus name="symbol" class="form-select mx-auto w-auto" aria-label="Default select">
+            <option value="">Available stocks</option>
+
+            {% for symbol in owns %}
+            <option value={{symbol}}>{{symbol}}</option>
+            {% endfor %}
+
+        </select>
+    </div>
+    <div class="mb-3">
+        <input required autocomplete="off" class="form-control mx-auto w-auto" id="shares" name="shares"
+            placeholder="Amount of shares" type="text" min="1">
+    </div>
+    <div class="mb-3">
+        <button class="form-group btn btn-info" type="submit">Sell</button>
+    </div>
+    {% if invalid %}
+    <div class="alert alert-warning" role="alert">Insufficient amount of {{symbol}} to sell.</div>
+    {% endif %}
+</form>
+{% endblock %}
